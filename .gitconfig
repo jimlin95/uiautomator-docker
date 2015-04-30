@@ -1,0 +1,56 @@
+[gui]
+[user]
+	name = Jim Lin
+	email = jim_lin@quantatw.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+[alias]
+	st = status
+	srb = svn rebase
+	ci = commit -a
+	co = checkout
+	rb = rebase
+	st1 = status
+[diff]
+	#external = /home/jimlin/bin/git-meld
+	tool = meld
+[difftool]
+	prompt = false
+[gc]
+	auto = 1
+[http]
+	sslVerify = false
+	proxy = http://10.241.104.240:5678/
+[core]
+	#gitProxy = /home/jim/bin/git-proxy.sh 
+#[merge]
+#	tool = meld
+#    prompt = false
+[branch] 
+    autosetuprebase=always
+
+[core]
+	editor = vim
+[receive]
+	denyDeleteCurrent = warn
+#[merge]
+#	tool = mymeld
+#conflictstyle = diff3
+#[mergetool "mymeld"]
+#	cmd = meld --diff $BASE $LOCAL --diff $BASE $REMOTE --diff $BASE $LOCAL $REMOTE
+[mergetool "meldmerge"]
+	cmd = meld $LOCAL $MERGED $REMOTE 
+[merge]
+	tool = meldmerge
+[https]
+	proxy = http://10.241.104.240:5678/
+[hooks "slack"]
+	webhook-url = https://hooks.slack.com/services/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
+	channel = test
+	username = GIT
+	icon-url = http://dev.bowdenweb.com/a/i/cons/dev/git/icon/git-icon-black/git-icon-black-w128.png
+	icon-emoji = :twisted_rightwards_arrows:
+	show-only-last-commit = true
