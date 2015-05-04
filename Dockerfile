@@ -15,8 +15,8 @@ ENV DEBIAN_FRONTEND noninteractive
 # 32-bit libraries and build deps for ADB
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get -y install libc6:i386 libstdc++6:i386 && \
-	apt-get -y install wget unzip python-setuptools  python-pip git
+    apt-get -y install --no-install-recommends libc6:i386 libstdc++6:i386 && \
+	apt-get -y install --no-install-recommends openjdk-7-jdk wget python-setuptools  python-pip git
 
 # Install a basic SSH server
 RUN apt-get install -y --no-install-recommends openssh-server
@@ -25,16 +25,22 @@ RUN mkdir -p /var/run/sshd
 
 # install uiautomator wrapper
 RUN pip install --proxy=http://10.241.104.240:5678/ uiautomator
-RUN pip install --proxy=http://10.241.104.240:5678/ git+https://github.com/dtmilano/AndroidViewClient.git
 ENV https_proxy=http://10.241.104.240:5678/
 ENV http_proxy http://10.241.104.240:5678/
 # Install ADB
-RUN wget --progress=dot:giga -O /opt/adt.zip \
-      http://dl.google.com/android/adt/adt-bundle-linux-x86_64-20140702.zip && \
-    unzip /opt/adt.zip adt-bundle-linux-x86_64-20140702/sdk/platform-tools/adb -d /opt && \
-    mv /opt/adt-bundle-linux-x86_64-20140702 /opt/adt && \
-    rm /opt/adt.zip && \
-    ln -s /opt/adt/sdk/platform-tools/adb /usr/local/bin/adb
+RUN wget --progress=dot:giga -O /opt/sdk.tgz \
+    http://dl.google.com/android/android-sdk_r24.1.2-linux.tgz && \
+    tar xzf /opt/sdk.tgz  -C /opt && \
+    rm /opt/sdk.tgz 
+
+# SET ENV
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+# Install tools
+RUN echo y | android update sdk --filter platform-tools,extra-android-support --no-ui --force
+
+#chmod for andoird-sdk-linux
+RUN chmod a+x /opt/android-sdk-linux -R
 
 # Set up insecure default key
 RUN mkdir -m 0750 /.android
@@ -42,7 +48,7 @@ ADD files/insecure_shared_adbkey /.android/adbkey
 ADD files/insecure_shared_adbkey.pub /.android/adbkey.pub
 
 # Clean up
-RUN apt-get -y --purge remove wget unzip && \
+RUN apt-get -y --purge remove wget && \
     apt-get -y autoremove && \
     apt-get clean && \
     rm -rf /var/cache/apt/*
@@ -57,6 +63,8 @@ USER jenkins
 # Add files for development environment
 RUN mkdir -p /home/jenkins/.ssh
 ADD .gitconfig /home/jenkins/
+ADD .bashrc /home/jenkins/
+ADD .profile /home/jenkins/
 USER root
 
 # Expose default ADB port
