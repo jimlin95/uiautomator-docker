@@ -16,7 +16,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
     apt-get -y install --no-install-recommends libc6:i386 libstdc++6:i386 && \
-	apt-get -y install --no-install-recommends openjdk-7-jdk wget python-setuptools  python-pip git
+	apt-get -y install --no-install-recommends openjdk-7-jdk wget python-setuptools  python-pip git python-opencv
 
 # Install a basic SSH server
 RUN apt-get install -y --no-install-recommends openssh-server
@@ -25,6 +25,7 @@ RUN mkdir -p /var/run/sshd
 
 # install uiautomator wrapper
 RUN pip install --proxy=http://10.241.104.240:5678/ uiautomator
+RUN pip install --proxy=http://10.241.104.240:5678/ nose
 ENV https_proxy=http://10.241.104.240:5678/
 ENV http_proxy http://10.241.104.240:5678/
 # Install ADB
