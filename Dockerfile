@@ -16,7 +16,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
     apt-get -y install --no-install-recommends libc6:i386 libstdc++6:i386 && \
-	apt-get -y install --no-install-recommends openjdk-7-jdk wget python-setuptools  python-pip git python-opencv
+	apt-get -y install --no-install-recommends openjdk-7-jdk wget python-setuptools  python-pip git python-opencv ipython && \
+    apt-get -y install --no-install-recommends python-scipy python-matplotlib python-numpy python-tk
 
 # Install a basic SSH server
 RUN apt-get install -y --no-install-recommends openssh-server
@@ -68,6 +69,7 @@ ADD .bashrc /home/jenkins/
 ADD .profile /home/jenkins/
 USER root
 
+RUN chown jenkins:jenkins -R /home/jenkins
 # Expose default ADB port
 #EXPOSE 5037
 
