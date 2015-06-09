@@ -16,7 +16,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
     apt-get -y install --no-install-recommends libc6:i386 libstdc++6:i386 && \
-	apt-get -y install --no-install-recommends openjdk-7-jdk wget python-setuptools  python-pip git python-opencv ipython && \
+	apt-get -y install --no-install-recommends openjdk-7-jdk wget python-setuptools  unzip tar python-pip git python-opencv ipython && \
     apt-get -y install --no-install-recommends python-scipy python-matplotlib python-numpy python-tk
 
 # Install a basic SSH server
@@ -39,8 +39,8 @@ RUN wget --progress=dot:giga -O /opt/sdk.tgz \
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 # Install tools
-RUN echo y | android update sdk --filter platform-tools,extra-android-support --no-ui --force
-
+#RUN echo y | android update sdk --filter platform-tools,extra-android-support --no-ui --force
+RUN echo y | android update sdk --no-ui --filter 2,platform-tools --force
 #chmod for andoird-sdk-linux
 RUN chmod a+x /opt/android-sdk-linux -R
 
