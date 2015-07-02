@@ -1,0 +1,12 @@
+uiautomator:
+  image: jimlin95/uiautomator
+  environment:
+    - DISPLAY=$DISPLAY 
+  volumes:
+    - /etc/localtime:/etc/localtime:ro 
+    - /dev/bus/usb:/dev/bus/usb 
+    - /tmp/.X11-unix:/tmp/.X11-unix 
+    - /home/jim/work/uiautomator:/src 
+  ports:
+      - "2222:22" 
+  privileged: true
