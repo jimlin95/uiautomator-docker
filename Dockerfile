@@ -25,10 +25,10 @@ RUN sed -i 's|session    required     pam_loginuid.so|session    optional     pa
 RUN mkdir -p /var/run/sshd
 
 # install uiautomator wrapper
-RUN pip install --proxy=http://10.241.104.240:5678/ uiautomator
-RUN pip install --proxy=http://10.241.104.240:5678/ nose
-ENV https_proxy=http://10.241.104.240:5678/
-ENV http_proxy http://10.241.104.240:5678/
+RUN pip install --proxy=http://10.242.104.204:5678/ uiautomator
+RUN pip install --proxy=http://10.242.104.204:5678/ nose
+ENV https_proxy=http://10.242.104.204:5678/
+ENV http_proxy http://10.242.104.204:5678/
 # Install ADB
 RUN wget --progress=dot:giga -O /opt/sdk.tgz \
     http://dl.google.com/android/android-sdk_r24.1.2-linux.tgz && \

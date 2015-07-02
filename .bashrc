@@ -105,10 +105,10 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-declare -x all_proxy="socks://10.241.104.240:5678/"
-declare -x ftp_proxy="ftp://10.241.104.240:5678/"
-declare -x http_proxy="http://10.241.104.240:5678/"
-declare -x https_proxy="http://10.241.104.240:5678/"
+declare -x all_proxy="socks://10.242.104.204:5678/"
+declare -x ftp_proxy="ftp://10.242.104.204:5678/"
+declare -x http_proxy="http://10.242.104.204:5678/"
+declare -x https_proxy="http://10.242.104.204:5678/"
 
 declare -x DISPLAY=:0
 export ANDROID_HOME=/opt/android-sdk-linux
