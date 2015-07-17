@@ -23,7 +23,7 @@
 	auto = 1
 [http]
 	sslVerify = false
-	proxy = http://10.241.104.240:5678/
+	proxy = http://10.242.104.204:5678/
 [core]
 	#gitProxy = /home/jim/bin/git-proxy.sh 
 #[merge]
@@ -46,7 +46,7 @@
 [merge]
 	tool = meldmerge
 [https]
-	proxy = http://10.241.104.240:5678/
+	proxy = http://10.242.104.204:5678/
 [hooks "slack"]
 	webhook-url = https://hooks.slack.com/services/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
 	channel = test

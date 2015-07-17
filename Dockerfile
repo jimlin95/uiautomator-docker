@@ -1,12 +1,13 @@
-FROM ubuntu:14.04
+FROM ubuntu:14.04.2
 MAINTAINER Jim Lin <jim_lin@quantatw.com>
 
 
 ADD apt.conf /etc/apt/ 
 ADD .gitconfig /root/
-RUN apt-get update -qq
-
-
+#RUN apt-get update
+#RUN apt-get update -qq
+ADD sources.list /etc/apt/
+RUN rm /var/lib/apt/lists/* -rvf
 # install adb tool
 
 # Stop debconf from complaining about missing frontend
